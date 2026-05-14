@@ -1,1 +1,0 @@
-import{g as i}from"./chunk-JF5LRFQG.js";import{B as t,J as o,O as r}from"./chunk-FUDXTTUG.js";var a=class e{http=r(i);sede$=this.http.get("/data/sede.json").pipe(t(1));getSede(){return this.sede$}static \u0275fac=function(p){return new(p||e)};static \u0275prov=o({token:e,factory:e.\u0275fac,providedIn:"root"})};export{a};
