@@ -1,0 +1,26 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.footer {
+  border-top: 1px solid $color-border;
+  padding: $sp-8 0;
+  text-align: center;
+  margin-top: $sp-10;
+
+  @include element('container') {
+    @include container;
+  }
+
+  @include element('copy') {
+    @include font-titulo(0.7rem);
+    color: $color-texto-muted;
+    letter-spacing: 3px;
+  }
+
+  @include element('tagline') {
+    margin-top: $sp-1;
+    font-size: 0.78rem;
+    font-style: italic;
+    color: $color-texto-muted;
+  }
+}

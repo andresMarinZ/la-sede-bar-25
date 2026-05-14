@@ -1,0 +1,174 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: $navbar-height;
+  background-color: $color-surface;
+  border-bottom: 1px solid $color-border;
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.6);
+
+  @include element('container') {
+    @include container;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  @include element('brand') {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  @include element('logo') {
+    height: 52px;
+    width: auto;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.35));
+    transition: filter $transition-fast;
+
+    &:hover {
+      filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.6));
+    }
+
+    @include from($bp-md) {
+      height: 60px;
+    }
+  }
+
+  // Lista de navegación
+  @include element('list') {
+    display: none;
+    align-items: center;
+    gap: $sp-2;
+
+    @include from($bp-md) {
+      display: flex;
+    }
+
+    @include modifier('open') {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      position: absolute;
+      top: $navbar-height;
+      left: 0;
+      right: 0;
+      background-color: $color-surface;
+      border-top: 1px solid $color-border;
+      border-bottom: 1px solid $color-border;
+      padding: $sp-2;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  @include element('item') {
+    width: 100%;
+
+    @include from($bp-md) {
+      width: auto;
+    }
+  }
+
+  @include element('link') {
+    @include font-titulo(0.85rem);
+    display: block;
+    padding: $sp-3 $sp-4;
+    border-radius: $radius-md;
+    color: $color-texto;
+    transition: $transition-fast;
+    position: relative;
+    letter-spacing: 2px;
+
+    // Subrayado animado en desktop
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: $sp-4;
+      right: $sp-4;
+      height: 2px;
+      background-color: $color-dorado;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.25s ease;
+    }
+
+    &:hover {
+      color: white;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    @include modifier('active') {
+      color: $color-dorado;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    // En mobile: sin subrayado, con fondo en hover
+    @include until($bp-md) {
+      &::after {
+        display: none;
+      }
+
+      &:hover {
+        background-color: $color-surface-hover;
+      }
+
+      &.navbar__link--active {
+        background-color: rgba($color-dorado, 0.08);
+      }
+    }
+  }
+
+  // Botón hamburguesa (solo mobile)
+  @include element('toggle') {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    padding: $sp-2;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    transition: $transition-fast;
+
+    @include from($bp-md) {
+      display: none;
+    }
+
+    @include modifier('open') {
+      .navbar__toggle-bar {
+        &:nth-child(1) {
+          transform: translateY(7px) rotate(45deg);
+        }
+        &:nth-child(2) {
+          opacity: 0;
+          transform: scaleX(0);
+        }
+        &:nth-child(3) {
+          transform: translateY(-7px) rotate(-45deg);
+        }
+      }
+    }
+  }
+
+  @include element('toggle-bar') {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: $color-dorado;
+    border-radius: $radius-full;
+    transition: $transition-fast;
+    transform-origin: center;
+  }
+}

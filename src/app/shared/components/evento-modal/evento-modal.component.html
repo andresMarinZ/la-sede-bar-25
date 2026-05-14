@@ -1,0 +1,39 @@
+@if (visible() && evento(); as ev) {
+  <div class="evento-modal__overlay" (click)="cerrar()">
+    <div class="evento-modal__dialog" (click)="$event.stopPropagation()">
+
+      <!-- Barra de progreso -->
+      <div class="evento-modal__progreso">
+        <div
+          class="evento-modal__progreso-bar"
+          [style.width.%]="progreso()"
+        ></div>
+      </div>
+
+      <!-- Botón cerrar -->
+      <button class="evento-modal__cerrar" (click)="cerrar()" aria-label="Cerrar">✕</button>
+
+      <!-- Flyer -->
+      <img
+        class="evento-modal__flyer"
+        [src]="ev.imagen"
+        [alt]="ev.alt"
+        loading="eager"
+      />
+
+      <!-- Footer CTA -->
+      <div class="evento-modal__footer">
+        <a
+          class="evento-modal__cta"
+          [href]="'https://wa.me/' + ev.whatsapp"
+          target="_blank"
+          rel="noopener"
+          (click)="cerrar()"
+        >
+          Reservar via WhatsApp
+        </a>
+      </div>
+
+    </div>
+  </div>
+}

@@ -1,0 +1,46 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.reservas {
+  padding: $sp-16 $sp-4;
+  text-align: center;
+
+  @include element('container') {
+    @include container;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $sp-6;
+  }
+
+  @include element('title') {
+    @include font-titulo(clamp(1.8rem, 5vw, 2.5rem));
+    color: white;
+  }
+
+  @include element('title-deco') {
+    color: $color-dorado;
+  }
+
+  @include element('text') {
+    color: $color-texto;
+    font-size: 1rem;
+    max-width: 480px;
+    line-height: 1.8;
+  }
+
+  @include element('btn') {
+    @include btn-base;
+    border-color: $color-dorado;
+    color: $color-dorado;
+    padding: $sp-3 $sp-10;
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+
+    &:hover {
+      background-color: $color-dorado;
+      color: $color-bg;
+      box-shadow: $shadow-dorado;
+    }
+  }
+}

@@ -1,0 +1,162 @@
+<section class="mundial">
+
+  <!-- ===== HERO ===== -->
+  <div class="mundial__hero">
+    <span class="mundial__hero-trofeo">🏆</span>
+    <h1 class="mundial__titulo">Copa Mundial FIFA 2026</h1>
+    <p class="mundial__subtitulo">Fase de Grupos — 72 partidos</p>
+    <p class="mundial__subtitulo mundial__subtitulo--colombia">
+      🇨🇴 ¡Síguele el paso a la Selección Colombia!
+    </p>
+  </div>
+
+  <!-- ===== FILTROS ===== -->
+  <div class="filtros">
+    <div class="filtros__container">
+
+      <!-- Búsqueda -->
+      <div class="filtros__campo filtros__campo--busqueda">
+        <span class="filtros__icono">🔍</span>
+        <input
+          class="filtros__input"
+          type="text"
+          placeholder="Buscar equipo..."
+          [ngModel]="busqueda()"
+          (ngModelChange)="busqueda.set($event)"
+          aria-label="Buscar equipo"
+        />
+        @if (busqueda()) {
+          <button class="filtros__limpiar-input" (click)="busqueda.set('')" aria-label="Limpiar búsqueda">✕</button>
+        }
+      </div>
+
+      <!-- Filtro grupo -->
+      <div class="filtros__campo filtros__campo--grupo">
+        <button
+          class="filtros__chip"
+          [class.filtros__chip--activo]="grupoActivo() === 'TODOS'"
+          (click)="onGrupoChange('TODOS')"
+        >
+          Todos
+        </button>
+        @for (g of grupos(); track g) {
+          <button
+            class="filtros__chip"
+            [class.filtros__chip--activo]="grupoActivo() === g"
+            (click)="onGrupoChange(g)"
+          >
+            Grupo {{ g }}
+          </button>
+        }
+      </div>
+
+      <!-- Filtro jornada -->
+      <div class="filtros__campo filtros__campo--jornada">
+        <button
+          class="filtros__chip filtros__chip--jornada"
+          [class.filtros__chip--activo]="jornadaActiva() === 0"
+          (click)="onJornadaChange(0)"
+        >
+          Todas
+        </button>
+        @for (j of JORNADAS; track j) {
+          <button
+            class="filtros__chip filtros__chip--jornada"
+            [class.filtros__chip--activo]="jornadaActiva() === j"
+            (click)="onJornadaChange(j)"
+          >
+            J{{ j }}
+          </button>
+        }
+      </div>
+
+      <!-- Toggle Colombia -->
+      <div class="filtros__campo filtros__campo--colombia">
+        <button
+          class="filtros__btn-colombia"
+          [class.filtros__btn-colombia--activo]="soloColombiaOn()"
+          (click)="onSoloColombiaToggle()"
+          aria-pressed="{{ soloColombiaOn() }}"
+        >
+          🇨🇴 Solo Colombia
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Resumen y limpiar -->
+    <div class="filtros__resumen">
+      <span class="filtros__conteo">
+        {{ totalFiltrados() }} partido{{ totalFiltrados() !== 1 ? 's' : '' }}
+      </span>
+      @if (grupoActivo() !== 'TODOS' || jornadaActiva() !== 0 || busqueda() || soloColombiaOn()) {
+        <button class="filtros__limpiar" (click)="limpiarFiltros()">
+          Limpiar filtros
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- ===== CONTENIDO ===== -->
+  @if (isLoading()) {
+    <div class="mundial__estado">
+      <div class="mundial__spinner"></div>
+      <p>Cargando partidos...</p>
+    </div>
+  } @else if (hasError()) {
+    <div class="mundial__estado mundial__estado--error">
+      <p>{{ hasError() }}</p>
+    </div>
+  } @else if (!hayResultados()) {
+    <div class="mundial__estado">
+      <p class="mundial__sin-resultados">No se encontraron partidos con ese filtro.</p>
+      <button class="filtros__limpiar" (click)="limpiarFiltros()">Ver todos</button>
+    </div>
+  } @else {
+    <div class="mundial__grid">
+      @for (partido of partidosFiltrados(); track trackById($index, partido)) {
+        <article
+          class="partido-card"
+          [class.partido-card--colombia]="partido.esColombiaPartido"
+        >
+          @if (partido.esColombiaPartido) {
+            <span class="partido-card__badge">🇨🇴 Nuestra Selección</span>
+          }
+
+          <div class="partido-card__meta">
+            <span class="partido-card__jornada">J{{ partido.jornada }}</span>
+            <span class="partido-card__grupo">Grupo {{ partido.grupo }}</span>
+          </div>
+
+          <div class="partido-card__equipos">
+            <div class="partido-card__equipo partido-card__equipo--local">
+              <img class="partido-card__bandera"
+                   [src]="'https://flagcdn.com/w40/' + partido.local.iso + '.png'"
+                   [alt]="partido.local.nombre"
+                   loading="lazy" width="40" height="30">
+              <span class="partido-card__nombre">{{ partido.local.nombre }}</span>
+            </div>
+
+            <div class="partido-card__vs">
+              <span class="partido-card__vs-texto">VS</span>
+            </div>
+
+            <div class="partido-card__equipo partido-card__equipo--visitante">
+              <img class="partido-card__bandera"
+                   [src]="'https://flagcdn.com/w40/' + partido.visitante.iso + '.png'"
+                   [alt]="partido.visitante.nombre"
+                   loading="lazy" width="40" height="30">
+              <span class="partido-card__nombre">{{ partido.visitante.nombre }}</span>
+            </div>
+          </div>
+
+          <div class="partido-card__tiempo">
+            <span class="partido-card__fecha">{{ formatearFecha(partido.fecha) }}</span>
+            <span class="partido-card__hora">{{ formatearHora(partido.hora) }}</span>
+          </div>
+        </article>
+      }
+    </div>
+  }
+
+</section>

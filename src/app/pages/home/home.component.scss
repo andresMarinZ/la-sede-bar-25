@@ -1,0 +1,275 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.home {
+  // ── Hero ──────────────────────────────────────────────────
+  @include element('hero') {
+    min-height: calc(88vh - #{$navbar-height});
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: $sp-10 $sp-4;
+    background: radial-gradient(
+      ellipse at 50% 0%,
+      rgba(255, 215, 0, 0.04) 0%,
+      transparent 65%
+    );
+  }
+
+  @include element('hero-inner') {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $sp-5;
+    max-width: 560px;
+  }
+
+  @include element('logo') {
+    height: 140px;
+    width: auto;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.45));
+
+    @include from($bp-md) {
+      height: 180px;
+    }
+  }
+
+  @include element('title') {
+    @include font-titulo(clamp(2rem, 6vw, 3.2rem));
+    color: white;
+    letter-spacing: 3px;
+  }
+
+  @include element('subtitle') {
+    @include font-titulo(0.8rem, 500);
+    color: $color-dorado;
+    letter-spacing: 5px;
+    font-size: clamp(0.65rem, 2vw, 0.8rem);
+  }
+
+  @include element('hero-actions') {
+    display: flex;
+    gap: $sp-4;
+    margin-top: $sp-3;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  @include element('cta') {
+    @include btn-base;
+    border-color: $color-dorado;
+    color: $color-dorado;
+    padding: $sp-3 $sp-10;
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+
+    &:hover {
+      background-color: $color-dorado;
+      color: $color-bg;
+      box-shadow: $shadow-dorado;
+    }
+
+    @include modifier('secondary') {
+      border-color: rgba($color-texto-muted, 0.4);
+      color: $color-texto;
+
+      &:hover {
+        border-color: $color-fucsia;
+        color: white;
+        box-shadow: $shadow-fucsia;
+        background-color: transparent;
+      }
+    }
+  }
+
+  // ── Evento section ────────────────────────────────────────
+  @include element('evento') {
+    padding: $sp-10 $sp-4;
+    border-top: 1px solid $color-border;
+  }
+
+  @include element('evento-inner') {
+    @include container;
+  }
+
+  @include element('evento-label-wrap') {
+    margin-bottom: $sp-5;
+  }
+
+  @include element('evento-label') {
+    @include font-titulo(0.65rem);
+    color: $color-dorado;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding-bottom: $sp-2;
+    border-bottom: 1px solid rgba($color-dorado, 0.25);
+  }
+
+  @include element('evento-content') {
+    display: flex;
+    flex-direction: column;
+    gap: $sp-6;
+    align-items: flex-start;
+
+    @include from($bp-md) {
+      flex-direction: row;
+      align-items: center;
+      gap: $sp-10;
+    }
+  }
+
+  @include element('evento-flyer') {
+    width: 100%;
+    max-width: 260px;
+    border-radius: $radius-lg;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 0, 0.12);
+    flex-shrink: 0;
+    align-self: center;
+
+    @include from($bp-md) {
+      align-self: auto;
+    }
+  }
+
+  @include element('evento-info') {
+    display: flex;
+    flex-direction: column;
+    gap: $sp-3;
+  }
+
+  @include element('evento-fecha') {
+    @include font-titulo(0.72rem);
+    color: $color-dorado;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  @include element('evento-titulo') {
+    @include font-titulo(clamp(1.5rem, 4vw, 2.2rem));
+    color: white;
+    line-height: 1.15;
+  }
+
+  @include element('evento-desc') {
+    font-size: 0.9rem;
+    color: $color-texto-muted;
+    line-height: 1.6;
+  }
+
+  @include element('evento-cta') {
+    @include btn-base;
+    border-color: $color-dorado;
+    color: $color-dorado;
+    padding: $sp-3 $sp-8;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    align-self: flex-start;
+    margin-top: $sp-2;
+
+    &:hover {
+      background-color: $color-dorado;
+      color: $color-bg;
+      box-shadow: $shadow-dorado;
+    }
+  }
+
+  // ── Info section ──────────────────────────────────────────
+  @include element('info') {
+    padding: $sp-12 $sp-4 $sp-16;
+    border-top: 1px solid $color-border;
+  }
+
+  @include element('info-grid') {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $sp-4;
+
+    @include from($bp-md) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @include element('info-card') {
+    background-color: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    padding: $sp-6;
+    display: flex;
+    flex-direction: column;
+    gap: $sp-2;
+    transition: $transition;
+
+    &:hover {
+      border-color: rgba($color-dorado, 0.2);
+      box-shadow: $shadow-dorado;
+      transform: translateY(-2px);
+    }
+  }
+
+  @include element('info-title') {
+    @include font-titulo(0.75rem);
+    color: $color-dorado;
+    letter-spacing: 3px;
+    margin-bottom: $sp-2;
+    padding-bottom: $sp-2;
+    border-bottom: 1px solid $color-border;
+  }
+
+  @include element('info-text') {
+    font-size: 0.88rem;
+    color: $color-texto;
+    line-height: 1.5;
+  }
+
+  @include element('info-link') {
+    font-size: 0.85rem;
+    color: $color-dorado;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: $transition-fast;
+    align-self: flex-start;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  // ── Horarios ──────────────────────────────────────────────
+  @include element('horario-list') {
+    display: flex;
+    flex-direction: column;
+    gap: $sp-2;
+    width: 100%;
+  }
+
+  @include element('horario-item') {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: $sp-3;
+    flex-wrap: wrap;
+  }
+
+  @include element('horario-dias') {
+    font-size: 0.82rem;
+    color: $color-texto;
+  }
+
+  @include element('horario-tiempo') {
+    @include font-titulo(0.72rem, 500);
+    color: $color-dorado;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  @include element('horario-nota') {
+    margin-top: $sp-2;
+    padding-top: $sp-3;
+    border-top: 1px solid $color-border;
+    font-size: 0.75rem;
+    font-style: italic;
+    color: $color-texto-muted;
+  }
+}

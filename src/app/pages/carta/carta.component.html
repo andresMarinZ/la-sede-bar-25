@@ -1,0 +1,53 @@
+<section class="carta">
+  <div class="carta__container">
+
+    <div class="carta__header">
+      <div>
+        <h2 class="carta__title">Nuestra Carta</h2>
+        <p class="carta__subtitle">Todo pa' el parche</p>
+      </div>
+      <span class="carta__note">Precios sujetos a cambio</span>
+    </div>
+
+    @if (isLoading()) {
+      <div class="carta__loader">
+        <div class="carta__spinner"></div>
+        <p class="carta__loader-text">Preparando el parche...</p>
+      </div>
+    }
+
+    @if (hasError()) {
+      <div class="carta__error">
+        <p>{{ hasError() }}</p>
+      </div>
+    }
+
+    @if (!isLoading() && !hasError()) {
+      <div class="carta__categories">
+        @for (group of groups(); track group.categoria) {
+          <div class="carta__category">
+            <h3 class="carta__category-title">
+              <span class="carta__category-icon">{{ getIcon(group.categoria) }}</span>
+              {{ group.categoria }}
+            </h3>
+            <div class="carta__grid">
+              @for (item of group.productos; track item.Producto + item.Presentacion) {
+                <article class="carta__item">
+                  <div class="carta__item-info">
+                    <h4 class="carta__item-name">{{ item.Producto }}</h4>
+                    <span class="carta__item-badge">{{ item.Presentacion }}</span>
+                  </div>
+                  <div class="carta__item-pricing">
+                    <span class="carta__item-price">{{ item.Precio }}</span>
+                    <span class="carta__item-currency">COP</span>
+                  </div>
+                </article>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+  </div>
+</section>

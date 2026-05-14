@@ -1,0 +1,116 @@
+<div class="home">
+
+  <!-- ── HERO ─────────────────────────────────────────────── -->
+  <section class="home__hero">
+    <div class="home__hero-inner">
+      <img
+        class="home__logo"
+        src="assets/img/logo.png"
+        alt="La Sede Bar 25"
+      />
+      @if (sede()) {
+        <h1 class="home__title">{{ sede()!.nombre }}</h1>
+        <p class="home__subtitle">Medellín &mdash; {{ sede()!.slogan }}</p>
+      } @else {
+        <h1 class="home__title">La Sede Bar 25</h1>
+        <p class="home__subtitle">Medellín &mdash; El Templo del Parche</p>
+      }
+      <div class="home__hero-actions">
+        <a class="home__cta" routerLink="/carta">Ver Carta</a>
+        <a
+          class="home__cta home__cta--secondary"
+          [href]="whatsappUrl()"
+          target="_blank"
+          rel="noopener"
+        >Reservar</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EVENTO ───────────────────────────────────────────── -->
+  @if (evento()?.activo) {
+    <section class="home__evento">
+      <div class="home__evento-inner">
+        <div class="home__evento-label-wrap">
+          <span class="home__evento-label">Próximo Evento</span>
+        </div>
+        <div class="home__evento-content">
+          <img
+            class="home__evento-flyer"
+            [src]="evento()!.imagen"
+            [alt]="evento()!.alt"
+            loading="lazy"
+          />
+          <div class="home__evento-info">
+            <p class="home__evento-fecha">{{ evento()!.fecha }}</p>
+            <h3 class="home__evento-titulo">{{ evento()!.titulo }}</h3>
+            <p class="home__evento-desc">{{ evento()!.descripcion }}</p>
+            <a
+              class="home__evento-cta"
+              [href]="'https://wa.me/' + evento()!.whatsapp"
+              target="_blank"
+              rel="noopener"
+            >Reservar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- ── INFO ──────────────────────────────────────────────── -->
+  @if (sede()) {
+    <section class="home__info">
+      <div class="home__info-grid">
+
+        <!-- Horarios -->
+        <div class="home__info-card">
+          <h3 class="home__info-title">Horarios</h3>
+          <ul class="home__horario-list">
+            @for (h of sede()!.horarios; track h.dias) {
+              <li class="home__horario-item">
+                <span class="home__horario-dias">{{ h.dias }}</span>
+                <span class="home__horario-tiempo">{{ h.apertura }} — {{ h.cierre }}</span>
+              </li>
+            }
+          </ul>
+          @if (sede()!.notaHorario) {
+            <p class="home__horario-nota">{{ sede()!.notaHorario }}</p>
+          }
+        </div>
+
+        <!-- Ubicación -->
+        <div class="home__info-card">
+          <h3 class="home__info-title">Ubicación</h3>
+          <p class="home__info-text">{{ sede()!.ubicacion.direccion }}</p>
+          <p class="home__info-text">{{ sede()!.ubicacion.ciudad }}, {{ sede()!.ubicacion.departamento }}</p>
+          <a
+            class="home__info-link"
+            href="https://maps.google.com/?q=La+Sede+Bar+25+Medellin"
+            target="_blank"
+            rel="noopener"
+          >Ver en Google Maps</a>
+        </div>
+
+        <!-- Contacto -->
+        <div class="home__info-card">
+          <h3 class="home__info-title">Contáctanos</h3>
+          <p class="home__info-text">{{ sede()!.telefono }}</p>
+          <a
+            class="home__info-link"
+            [href]="whatsappUrl()"
+            target="_blank"
+            rel="noopener"
+          >WhatsApp</a>
+          <a
+            class="home__info-link"
+            [href]="sede()!.redes.instagram.url"
+            target="_blank"
+            rel="noopener"
+          >@{{ sede()!.redes.instagram.usuario }}</a>
+        </div>
+
+      </div>
+    </section>
+  }
+
+</div>

@@ -1,0 +1,61 @@
+<section class="contacto">
+  <div class="contacto__container">
+
+    <h2 class="contacto__title">
+      <span class="contacto__title-deco">// </span>¿Armamos el Plan?
+    </h2>
+
+    @if (sede()) {
+      <!-- Redes sociales -->
+      <div class="contacto__links">
+        <a
+          class="contacto__link contacto__link--instagram"
+          [href]="sede()!.redes.instagram.url"
+          target="_blank"
+          rel="noopener"
+        >
+          Instagram &nbsp;·&nbsp; @{{ sede()!.redes.instagram.usuario }}
+        </a>
+        <a
+          class="contacto__link contacto__link--whatsapp"
+          [href]="whatsappUrl()"
+          target="_blank"
+          rel="noopener"
+        >
+          WhatsApp &nbsp;·&nbsp; {{ sede()!.telefono }}
+        </a>
+      </div>
+
+      <!-- Mapa -->
+      @if (mapUrl()) {
+        <div class="contacto__map">
+          <iframe
+            class="contacto__iframe"
+            [src]="mapUrl()!"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación La Sede Bar 25"
+          ></iframe>
+        </div>
+      }
+
+      <!-- Dirección -->
+      <div class="contacto__address">
+        <p class="contacto__street">{{ sede()!.ubicacion.direccion }}</p>
+        <p class="contacto__city">
+          {{ sede()!.ubicacion.ciudad }}, {{ sede()!.ubicacion.departamento }}
+        </p>
+      </div>
+
+    } @else {
+      <!-- Fallback mientras carga -->
+      <div class="contacto__links">
+        <a class="contacto__link contacto__link--whatsapp" href="https://wa.me/573125393316" target="_blank" rel="noopener">
+          WhatsApp
+        </a>
+      </div>
+    }
+
+  </div>
+</section>

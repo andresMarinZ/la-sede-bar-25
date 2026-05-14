@@ -1,0 +1,418 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+// ================================================================
+// MUNDIAL — Bloque raíz
+// ================================================================
+.mundial {
+  min-height: 100vh;
+  padding-top: $navbar-height;
+  background-color: $color-bg;
+  color: $color-texto;
+
+  // ── Hero ──────────────────────────────────────────────────────
+  &__hero {
+    text-align: center;
+    padding: $sp-16 $sp-4 $sp-8;
+    background: linear-gradient(180deg, rgba(255, 215, 0, 0.06) 0%, transparent 100%);
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__hero-trofeo {
+    display: block;
+    font-size: 3.5rem;
+    margin-bottom: $sp-4;
+    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.5));
+  }
+
+  &__titulo {
+    font-family: $font-titulo;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $color-dorado;
+    margin-bottom: $sp-2;
+  }
+
+  &__subtitulo {
+    font-family: $font-cuerpo;
+    font-size: 0.95rem;
+    color: $color-texto-muted;
+    margin-top: $sp-1;
+
+    &--colombia {
+      color: $color-dorado;
+      font-weight: 500;
+      margin-top: $sp-3;
+    }
+  }
+
+  // ── Grid de partidos ──────────────────────────────────────────
+  &__grid {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $sp-4;
+    padding-top: $sp-6;
+    padding-bottom: $sp-16;
+
+    @media (min-width: $bp-md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: $bp-lg) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  // ── Estados (loading / error / vacío) ─────────────────────────
+  &__estado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $sp-4;
+    padding: $sp-16 $sp-4;
+    text-align: center;
+    color: $color-texto-muted;
+
+    &--error {
+      color: $color-fucsia;
+    }
+  }
+
+  &__spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid $color-border;
+    border-top-color: $color-dorado;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  &__sin-resultados {
+    font-size: 1rem;
+    color: $color-texto-muted;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ================================================================
+// FILTROS — Bloque independiente
+// ================================================================
+.filtros {
+  @include container;
+  padding-top: $sp-6;
+  padding-bottom: $sp-4;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: $sp-4;
+  }
+
+  // ── Campo genérico ────────────────────────────────────────────
+  &__campo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $sp-2;
+
+    &--busqueda {
+      position: relative;
+      flex-wrap: nowrap;
+      align-items: center;
+      background-color: $color-surface;
+      border: 1px solid $color-border;
+      border-radius: $radius-md;
+      padding: 0 $sp-3;
+      transition: $transition-fast;
+
+      &:focus-within {
+        border-color: $color-dorado;
+        box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.15);
+      }
+    }
+  }
+
+  &__icono {
+    font-size: 1rem;
+    color: $color-texto-muted;
+    flex-shrink: 0;
+  }
+
+  &__input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: $color-texto;
+    font-family: $font-cuerpo;
+    font-size: 0.9rem;
+    padding: $sp-3 $sp-2;
+
+    &::placeholder {
+      color: $color-texto-muted;
+    }
+  }
+
+  &__limpiar-input {
+    background: none;
+    border: none;
+    color: $color-texto-muted;
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: $sp-1;
+    border-radius: $radius-full;
+    transition: $transition-fast;
+
+    &:hover {
+      color: $color-texto;
+    }
+  }
+
+  // ── Chips de grupo / jornada ──────────────────────────────────
+  &__chip {
+    background-color: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-full;
+    color: $color-texto-muted;
+    cursor: pointer;
+    font-family: $font-cuerpo;
+    font-size: 0.8rem;
+    padding: $sp-1 $sp-3;
+    transition: $transition-fast;
+
+    &:hover {
+      border-color: $color-dorado;
+      color: $color-dorado;
+    }
+
+    &--activo {
+      background-color: $color-dorado;
+      border-color: $color-dorado;
+      color: $color-bg;
+      font-weight: 600;
+    }
+
+    &--jornada {
+      min-width: 44px;
+      text-align: center;
+    }
+  }
+
+  // ── Botón solo Colombia ───────────────────────────────────────
+  &__btn-colombia {
+    background-color: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-full;
+    color: $color-texto-muted;
+    cursor: pointer;
+    font-family: $font-cuerpo;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: $sp-2 $sp-5;
+    transition: $transition-fast;
+
+    &:hover {
+      border-color: $color-dorado;
+      color: $color-dorado;
+    }
+
+    &--activo {
+      background: linear-gradient(135deg, #003087 0%, #ce1126 50%, #fcd116 100%);
+      border-color: transparent;
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 0 12px rgba(252, 209, 22, 0.35);
+    }
+  }
+
+  // ── Resumen y limpiar ─────────────────────────────────────────
+  &__resumen {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: $sp-2;
+  }
+
+  &__conteo {
+    font-size: 0.8rem;
+    color: $color-texto-muted;
+  }
+
+  &__limpiar {
+    background: none;
+    border: 1px solid $color-fucsia;
+    border-radius: $radius-full;
+    color: $color-fucsia;
+    cursor: pointer;
+    font-family: $font-cuerpo;
+    font-size: 0.75rem;
+    padding: $sp-1 $sp-3;
+    transition: $transition-fast;
+
+    &:hover {
+      background-color: $color-fucsia;
+      color: #fff;
+    }
+  }
+}
+
+// ================================================================
+// PARTIDO CARD — Bloque
+// ================================================================
+.partido-card {
+  position: relative;
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $sp-5;
+  display: flex;
+  flex-direction: column;
+  gap: $sp-4;
+  transition: $transition;
+
+  &:hover {
+    border-color: rgba(255, 215, 0, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  // ── Modificador Colombia ──────────────────────────────────────
+  &--colombia {
+    border-color: rgba(252, 209, 22, 0.5);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 48, 135, 0.12) 0%,
+      rgba(206, 17, 38, 0.06) 50%,
+      rgba(252, 209, 22, 0.08) 100%
+    );
+    box-shadow: 0 0 20px rgba(252, 209, 22, 0.12);
+
+    &:hover {
+      border-color: rgba(252, 209, 22, 0.8);
+      box-shadow: 0 0 30px rgba(252, 209, 22, 0.2);
+    }
+  }
+
+  // ── Badge Colombia ────────────────────────────────────────────
+  &__badge {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #003087, #ce1126, #fcd116);
+    color: #fff;
+    font-family: $font-titulo;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px $sp-3;
+    border-radius: 0 0 $radius-sm $radius-sm;
+    white-space: nowrap;
+  }
+
+  // ── Meta (jornada + grupo) ────────────────────────────────────
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $sp-2;
+  }
+
+  &__jornada,
+  &__grupo {
+    font-family: $font-titulo;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $color-texto-muted;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    padding: 2px $sp-2;
+  }
+
+  &__grupo {
+    color: $color-dorado;
+    border-color: rgba(255, 215, 0, 0.3);
+  }
+
+  // ── Equipos ───────────────────────────────────────────────────
+  &__equipos {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: $sp-3;
+  }
+
+  &__equipo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $sp-2;
+    text-align: center;
+
+    &--visitante {
+      // igual que local — misma alineación
+    }
+  }
+
+  &__bandera {
+    width: 40px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: $radius-sm;
+    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.6));
+  }
+
+  &__nombre {
+    font-family: $font-titulo;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: $color-texto;
+    line-height: 1.2;
+    word-break: break-word;
+  }
+
+  // ── VS ────────────────────────────────────────────────────────
+  &__vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__vs-texto {
+    font-family: $font-titulo;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: $color-texto-muted;
+    letter-spacing: 0.1em;
+  }
+
+  // ── Tiempo (fecha + hora) ─────────────────────────────────────
+  &__tiempo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid $color-border;
+    padding-top: $sp-3;
+  }
+
+  &__fecha {
+    font-family: $font-cuerpo;
+    font-size: 0.78rem;
+    color: $color-texto-muted;
+    text-transform: capitalize;
+  }
+
+  &__hora {
+    font-family: $font-titulo;
+    font-size: 0.85rem;
+    color: $color-dorado;
+    letter-spacing: 0.04em;
+  }
+}

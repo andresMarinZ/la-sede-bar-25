@@ -1,0 +1,40 @@
+<nav class="navbar">
+  <div class="navbar__container">
+
+    <a class="navbar__brand" routerLink="/inicio" (click)="closeMenu()">
+      <img
+        class="navbar__logo"
+        src="assets/img/logo.png"
+        alt="La Sede Bar 25"
+      />
+    </a>
+
+    <button
+      class="navbar__toggle"
+      [class.navbar__toggle--open]="isMenuOpen()"
+      (click)="toggleMenu()"
+      aria-label="Abrir menú"
+    >
+      <span class="navbar__toggle-bar"></span>
+      <span class="navbar__toggle-bar"></span>
+      <span class="navbar__toggle-bar"></span>
+    </button>
+
+    <ul class="navbar__list" [class.navbar__list--open]="isMenuOpen()">
+      @for (item of navItems; track item.path) {
+        <li class="navbar__item">
+          <a
+            class="navbar__link"
+            [routerLink]="item.path"
+            routerLinkActive="navbar__link--active"
+            [routerLinkActiveOptions]="{ exact: item.path === '/inicio' }"
+            (click)="closeMenu()"
+          >
+            {{ item.label }}
+          </a>
+        </li>
+      }
+    </ul>
+
+  </div>
+</nav>
