@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const d=require\\('./public/data/menu.json'\\); d.forEach\\(g=>console.log\\(g.categoria\\)\\)\")",
+      "Bash(node -e \"const d=require\\('./public/data/menu.json'\\); const cats=[...new Set\\(d.map\\(i=>i.Categoria\\)\\)]; cats.forEach\\(c=>console.log\\(c\\)\\)\")"
+    ]
+  }
+}
