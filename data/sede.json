@@ -1,0 +1,36 @@
+{
+  "nombre": "La Sede Bar 25",
+  "slogan": "El Templo del Parche",
+  "telefono": "312 539 3316",
+  "whatsapp": "573125393316",
+  "redes": {
+    "instagram": {
+      "usuario": "lasedebar_25",
+      "url": "https://www.instagram.com/lasedebar_25"
+    }
+  },
+  "ubicacion": {
+    "direccion": "Calle 25 # 60 - 05",
+    "ciudad": "Medellín",
+    "departamento": "Antioquia",
+    "mapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2818310428706!2d-75.58589712432081!3d6.226523626541727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442928321df8eb%3A0x62b0346ea0afdfeb!2sLa%20Sede%20Bar%2025!5e0!3m2!1ses-419!2sco!4v1778333713386!5m2!1ses-419!2sco"
+  },
+  "horarios": [
+    {
+      "dias": "Martes — Jueves",
+      "apertura": "4:00 pm",
+      "cierre": "12:00 am"
+    },
+    {
+      "dias": "Viernes — Sábado",
+      "apertura": "12:00 pm",
+      "cierre": "2:00 am"
+    },
+    {
+      "dias": "Domingo",
+      "apertura": "12:00 pm",
+      "cierre": "12:00 am"
+    }
+  ],
+  "notaHorario": "Cerrado los lunes"
+}
