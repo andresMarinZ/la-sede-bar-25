@@ -7,6 +7,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="La Sede Bar 25 — El bar de referencia en Medellín. Carta de licores, cervezas y más.">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    // Restaura la ruta SPA redirigida por 404.html en GitHub Pages
+    (function(l) {
+      if (l.search[1] === '/') {
+        var decoded = l.search.slice(1).split('&').map(function(s) {
+          return s.replace(/~and~/g, '&');
+        });
+        window.history.replaceState(null, null,
+          l.pathname.slice(0, -1) + decoded[0] +
+          (decoded[1] ? '&' + decoded[1].slice(1) : '') +
+          l.hash
+        );
+      }
+    }(window.location));
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
