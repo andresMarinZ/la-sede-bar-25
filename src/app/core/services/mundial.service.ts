@@ -9,7 +9,7 @@ export class MundialService {
   private http = inject(HttpClient);
 
   getData(): Observable<MundialData> {
-    return this.http.get<MundialData>('/data/mundial-2026.json');
+    return this.http.get<MundialData>('data/mundial-2026.json');
   }
 
   getPartidos(): Observable<Partido[]> {

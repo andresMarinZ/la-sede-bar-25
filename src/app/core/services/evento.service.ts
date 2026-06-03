@@ -7,6 +7,6 @@ export class EventoService {
   private http = inject(HttpClient);
 
   getEvento() {
-    return this.http.get<Evento>('/data/evento.json');
+    return this.http.get<Evento>('data/evento.json');
   }
 }

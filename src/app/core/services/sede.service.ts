@@ -10,7 +10,7 @@ export class SedeService {
   // shareReplay(1): la petición se hace una sola vez y se comparte entre
   // todos los componentes que consuman este servicio
   private sede$ = this.http
-    .get<SedeInfo>('/data/sede.json')
+    .get<SedeInfo>('data/sede.json')
     .pipe(shareReplay(1));
 
   getSede() {

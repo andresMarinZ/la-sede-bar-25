@@ -7,6 +7,6 @@ export class MenuService {
   private http = inject(HttpClient);
 
   getMenu() {
-    return this.http.get<MenuItem[]>('/data/menu.json');
+    return this.http.get<MenuItem[]>('data/menu.json');
   }
 }
