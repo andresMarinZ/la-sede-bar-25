@@ -99,6 +99,11 @@
   to { transform: rotate(360deg); }
 }
 
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
+
 // ================================================================
 // FILTROS — Bloque independiente
 // ================================================================
@@ -393,6 +398,47 @@
     letter-spacing: 0.1em;
   }
 
+  // ── Status badge (EN VIVO / FINAL) ───────────────────────────
+  &__status {
+    margin-left: auto;
+    font-family: $font-titulo;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px $sp-2;
+    border-radius: $radius-sm;
+
+    &--live {
+      background-color: rgba(255, 50, 50, 0.12);
+      color: #ff4444;
+      border: 1px solid rgba(255, 50, 50, 0.3);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    &--final {
+      background-color: rgba(255, 215, 0, 0.08);
+      color: $color-dorado;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+  }
+
+  // ── Marcador ──────────────────────────────────────────────────
+  &__score {
+    font-family: $font-titulo;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $color-dorado;
+    letter-spacing: 0.08em;
+    text-align: center;
+    line-height: 1;
+  }
+
+  // ── Nombre ganador ────────────────────────────────────────────
+  &__nombre--ganador {
+    color: $color-dorado;
+  }
+
   // ── Tiempo (fecha + hora) ─────────────────────────────────────
   &__tiempo {
     display: flex;
@@ -414,5 +460,26 @@
     font-size: 0.85rem;
     color: $color-dorado;
     letter-spacing: 0.04em;
+  }
+
+  // ── Estadio ───────────────────────────────────────────────────
+  &__estadio {
+    display: flex;
+    align-items: center;
+    gap: $sp-2;
+    border-top: 1px solid $color-border;
+    padding-top: $sp-3;
+  }
+
+  &__estadio-icono {
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  &__estadio-info {
+    font-family: $font-cuerpo;
+    font-size: 0.72rem;
+    color: $color-texto-muted;
+    line-height: 1.3;
   }
 }

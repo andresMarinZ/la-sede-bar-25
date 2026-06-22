@@ -1,0 +1,74 @@
+name: Actualizar resultados del Mundial
+
+on:
+  schedule:
+    - cron: '0 13 * * *'   # 8:00 am Colombia (UTC-5)
+    - cron: '0 19 * * *'   # 2:00 pm Colombia
+    - cron: '0 4 * * *'    # 11:00 pm Colombia
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  update-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Fetch resultados desde API
+        env:
+          FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
+        run: node scripts/update-mundial.mjs
+
+      - name: Verificar si hubo cambios
+        id: diff
+        run: |
+          git diff --quiet public/data/mundial-2026.json \
+            && echo "changed=false" >> $GITHUB_OUTPUT \
+            || echo "changed=true"  >> $GITHUB_OUTPUT
+
+      - name: Commit datos actualizados
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/data/mundial-2026.json
+          git commit -m "chore: actualizar resultados del mundial"
+          git push
+
+      - name: Install dependencies
+        if: steps.diff.outputs.changed == 'true'
+        run: npm ci
+
+      - name: Build
+        if: steps.diff.outputs.changed == 'true'
+        run: npm run build -- --base-href /la-sede-bar-25/
+
+      - name: Upload Pages artifact
+        if: steps.diff.outputs.changed == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/la-sede-bar-25/browser
+
+      - name: Deploy to GitHub Pages
+        if: steps.diff.outputs.changed == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4

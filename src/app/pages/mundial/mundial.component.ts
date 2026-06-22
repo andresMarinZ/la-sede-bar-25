@@ -118,4 +118,12 @@ export class MundialComponent implements OnInit {
   trackById(_index: number, partido: Partido): number {
     return partido.id;
   }
+
+  ganador(partido: Partido): 'local' | 'visitante' | 'empate' | null {
+    const r = partido.resultado;
+    if (r.estado !== 'FINALIZADO' || r.golesLocal === null || r.golesVisitante === null) return null;
+    if (r.golesLocal > r.golesVisitante) return 'local';
+    if (r.golesLocal < r.golesVisitante) return 'visitante';
+    return 'empate';
+  }
 }

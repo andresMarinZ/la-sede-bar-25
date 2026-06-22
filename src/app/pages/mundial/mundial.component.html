@@ -126,6 +126,11 @@
           <div class="partido-card__meta">
             <span class="partido-card__jornada">J{{ partido.jornada }}</span>
             <span class="partido-card__grupo">Grupo {{ partido.grupo }}</span>
+            @if (partido.resultado.estado === 'EN_JUEGO') {
+              <span class="partido-card__status partido-card__status--live">🔴 EN VIVO</span>
+            } @else if (partido.resultado.estado === 'FINALIZADO') {
+              <span class="partido-card__status partido-card__status--final">FINAL</span>
+            }
           </div>
 
           <div class="partido-card__equipos">
@@ -134,11 +139,20 @@
                    [src]="'https://flagcdn.com/w40/' + partido.local.iso + '.png'"
                    [alt]="partido.local.nombre"
                    loading="lazy" width="40" height="30">
-              <span class="partido-card__nombre">{{ partido.local.nombre }}</span>
+              <span class="partido-card__nombre"
+                    [class.partido-card__nombre--ganador]="ganador(partido) === 'local'">
+                {{ partido.local.nombre }}
+              </span>
             </div>
 
             <div class="partido-card__vs">
-              <span class="partido-card__vs-texto">VS</span>
+              @if (partido.resultado.estado !== 'PROGRAMADO' && partido.resultado.golesLocal !== null) {
+                <span class="partido-card__score">
+                  {{ partido.resultado.golesLocal }} - {{ partido.resultado.golesVisitante }}
+                </span>
+              } @else {
+                <span class="partido-card__vs-texto">VS</span>
+              }
             </div>
 
             <div class="partido-card__equipo partido-card__equipo--visitante">
@@ -146,14 +160,29 @@
                    [src]="'https://flagcdn.com/w40/' + partido.visitante.iso + '.png'"
                    [alt]="partido.visitante.nombre"
                    loading="lazy" width="40" height="30">
-              <span class="partido-card__nombre">{{ partido.visitante.nombre }}</span>
+              <span class="partido-card__nombre"
+                    [class.partido-card__nombre--ganador]="ganador(partido) === 'visitante'">
+                {{ partido.visitante.nombre }}
+              </span>
             </div>
           </div>
 
           <div class="partido-card__tiempo">
             <span class="partido-card__fecha">{{ formatearFecha(partido.fecha) }}</span>
-            <span class="partido-card__hora">{{ formatearHora(partido.hora) }}</span>
+            @if (partido.resultado.estado === 'PROGRAMADO') {
+              <span class="partido-card__hora">{{ formatearHora(partido.hora) }}</span>
+            }
           </div>
+
+          @if (partido.estadio.nombre) {
+            <div class="partido-card__estadio">
+              <span class="partido-card__estadio-icono">🏟</span>
+              <span class="partido-card__estadio-info">
+                {{ partido.estadio.nombre }}
+                @if (partido.estadio.ciudad) { · {{ partido.estadio.ciudad }} }
+              </span>
+            </div>
+          }
         </article>
       }
     </div>

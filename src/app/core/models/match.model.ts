@@ -3,6 +3,19 @@ export interface Equipo {
   iso: string;
 }
 
+export type EstadoPartido = 'PROGRAMADO' | 'EN_JUEGO' | 'FINALIZADO';
+
+export interface Resultado {
+  golesLocal: number | null;
+  golesVisitante: number | null;
+  estado: EstadoPartido;
+}
+
+export interface Estadio {
+  nombre: string;
+  ciudad: string;
+}
+
 export interface Partido {
   id: number;
   fecha: string;
@@ -12,6 +25,8 @@ export interface Partido {
   local: Equipo;
   visitante: Equipo;
   esColombiaPartido: boolean;
+  resultado: Resultado;
+  estadio: Estadio;
 }
 
 export interface MundialData {
