@@ -1130,9 +1130,9 @@
       },
       "esColombiaPartido": false,
       "resultado": {
-        "golesLocal": null,
-        "golesVisitante": null,
-        "estado": "PROGRAMADO"
+        "golesLocal": 5,
+        "golesVisitante": 0,
+        "estado": "FINALIZADO"
       },
       "estadio": {
         "nombre": "",
