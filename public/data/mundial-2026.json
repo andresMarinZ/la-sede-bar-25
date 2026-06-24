@@ -1155,9 +1155,9 @@
       },
       "esColombiaPartido": false,
       "resultado": {
-        "golesLocal": null,
-        "golesVisitante": null,
-        "estado": "PROGRAMADO"
+        "golesLocal": 0,
+        "golesVisitante": 0,
+        "estado": "FINALIZADO"
       },
       "estadio": {
         "nombre": "",
@@ -1180,9 +1180,9 @@
       },
       "esColombiaPartido": false,
       "resultado": {
-        "golesLocal": null,
-        "golesVisitante": null,
-        "estado": "PROGRAMADO"
+        "golesLocal": 0,
+        "golesVisitante": 1,
+        "estado": "FINALIZADO"
       },
       "estadio": {
         "nombre": "",
@@ -1205,9 +1205,9 @@
       },
       "esColombiaPartido": true,
       "resultado": {
-        "golesLocal": null,
-        "golesVisitante": null,
-        "estado": "PROGRAMADO"
+        "golesLocal": 1,
+        "golesVisitante": 0,
+        "estado": "FINALIZADO"
       },
       "estadio": {
         "nombre": "",
