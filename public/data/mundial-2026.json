@@ -1230,9 +1230,9 @@
       },
       "esColombiaPartido": false,
       "resultado": {
-        "golesLocal": 0,
-        "golesVisitante": 0,
-        "estado": "EN_JUEGO"
+        "golesLocal": 2,
+        "golesVisitante": 1,
+        "estado": "FINALIZADO"
       },
       "estadio": {
         "nombre": "",
@@ -1255,9 +1255,9 @@
       },
       "esColombiaPartido": false,
       "resultado": {
-        "golesLocal": 1,
-        "golesVisitante": 0,
-        "estado": "EN_JUEGO"
+        "golesLocal": 3,
+        "golesVisitante": 1,
+        "estado": "FINALIZADO"
       },
       "estadio": {
         "nombre": "",
@@ -1280,9 +1280,9 @@
       },
       "esColombiaPartido": false,
       "resultado": {
-        "golesLocal": null,
-        "golesVisitante": null,
-        "estado": "PROGRAMADO"
+        "golesLocal": 0,
+        "golesVisitante": 3,
+        "estado": "FINALIZADO"
       },
       "estadio": {
         "nombre": "",
@@ -1305,9 +1305,9 @@
       },
       "esColombiaPartido": false,
       "resultado": {
-        "golesLocal": null,
-        "golesVisitante": null,
-        "estado": "PROGRAMADO"
+        "golesLocal": 4,
+        "golesVisitante": 2,
+        "estado": "FINALIZADO"
       },
       "estadio": {
         "nombre": "",
@@ -1330,9 +1330,9 @@
       },
       "esColombiaPartido": false,
       "resultado": {
-        "golesLocal": null,
-        "golesVisitante": null,
-        "estado": "PROGRAMADO"
+        "golesLocal": 0,
+        "golesVisitante": 3,
+        "estado": "FINALIZADO"
       },
       "estadio": {
         "nombre": "",
@@ -1355,9 +1355,9 @@
       },
       "esColombiaPartido": false,
       "resultado": {
-        "golesLocal": null,
-        "golesVisitante": null,
-        "estado": "PROGRAMADO"
+        "golesLocal": 1,
+        "golesVisitante": 0,
+        "estado": "FINALIZADO"
       },
       "estadio": {
         "nombre": "",
